@@ -37,6 +37,7 @@ public class AppInitializer implements ServletContextListener {
         BalanceRepository balanceRepository = new BalanceRepository(emf);
         UserLevelRepository userLevelRepository = new UserLevelRepository(emf);
         CardRepository cardRepository  = new CardRepository(emf);
+        OtpTransactionRepository otpReposi = new OtpTransactionRepository(emf);
 
         // ✅ Khởi tạo JwtUtil
         JwtUtil jwtUtil = new JwtUtil();
@@ -67,6 +68,15 @@ public class AppInitializer implements ServletContextListener {
 
         TransactionService transactionService = new TransactionService(transactionRepository);
         UserLevelService userLevelService = new UserLevelService(userLevelRepository);
+        TransferService transferService = new TransferService(
+                transactionRepository,
+                otpReposi,
+                cardRepository,
+                emailService,
+                balanceRepository,
+                accountRepository,
+                accountService
+        );
 
         // ✅ Đặt vào context
         ServletContext context = sce.getServletContext();
@@ -78,6 +88,7 @@ public class AppInitializer implements ServletContextListener {
         context.setAttribute("userLevelService", userLevelService);
         context.setAttribute("balanceService", balanceService);
         context.setAttribute("balanceRepository", balanceRepository);
+        context.setAttribute("transferService", transferService);
 
         // ✅ Thêm cấu hình ObjectMapper hỗ trợ LocalDate / LocalDateTime
         ObjectMapper mapper = new ObjectMapper();

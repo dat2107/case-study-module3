@@ -62,10 +62,17 @@ public class AppConfig {
     // ========= MAIL =========
     private static void loadMailConfig() {
         try {
+//            Dotenv dotenv = Dotenv.configure()
+//                    //.directory("E:/CodeGym/Module3_C04/notification-service") // ⚙️ chỉnh path nếu khác
+//                    .ignoreIfMissing()
+//                    .load();
+
             Dotenv dotenv = Dotenv.configure()
-                    .directory("E:/CodeGym/Module3_C04/notification-service") // ⚙️ chỉnh path nếu khác
+                    .directory("E:/CodeGym/Module3_C04/notification-service")
+                    .filename(".env")    // bảo đảm Dotenv biết đúng file
                     .ignoreIfMissing()
                     .load();
+
 
             InputStream input = Thread.currentThread()
                     .getContextClassLoader()
@@ -76,8 +83,9 @@ public class AppConfig {
 
             smtpHost = props.getProperty("mail.smtp.host", "smtp.gmail.com");
             smtpPort = props.getProperty("mail.smtp.port", "587");
-            smtpUser = dotenv.get("MAIL_USERNAME", props.getProperty("mail.smtp.user"));
-            smtpPass = dotenv.get("MAIL_PASSWORD", props.getProperty("mail.smtp.password"));
+            smtpUser = dotenv.get("MAIL_USERNAME", props.getProperty("mail.smtp.user", ""));
+            smtpPass = dotenv.get("MAIL_PASSWORD", props.getProperty("mail.smtp.password", ""));
+
 
             if (smtpUser == null || smtpPass == null)
                 throw new IllegalStateException("❌ Missing MAIL_USERNAME or MAIL_PASSWORD");

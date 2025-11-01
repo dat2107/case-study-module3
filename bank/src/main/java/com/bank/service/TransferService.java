@@ -32,6 +32,17 @@ public class TransferService {
     private AccountRepository accountRepository;
     private AccountServiceImpl accountService;
 
+    public TransferService(TransactionRepository transactionRepo, OtpTransactionRepository otpRepo, CardRepository cardRepo, EmailService emailService, BalanceRepository balanceRepository, AccountRepository accountRepository, AccountServiceImpl accountService) {
+        this.transactionRepo = transactionRepo;
+        this.otpRepo = otpRepo;
+        this.cardRepo = cardRepo;
+        this.emailService = emailService;
+        this.balanceRepository = balanceRepository;
+        this.accountRepository = accountRepository;
+        this.accountService = accountService;
+    }
+
+
     //Bước 1: Tạo giao dịch và sinh OTP
     public Transaction createTransferRequest(TransferDTO dto) {
         Card fromCard = cardRepo.findById(dto.getFromCardId())
@@ -218,7 +229,7 @@ public class TransferService {
         payment.setSenderEmail(fromCard.getAccount().getEmail());
 
         try {
-            URL url = new URL("http://payment-service:8080/api/payments");
+            URL url = new URL("http://localhost:8081/api/payments");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");

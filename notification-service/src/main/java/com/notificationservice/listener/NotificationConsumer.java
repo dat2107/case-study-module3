@@ -1,5 +1,6 @@
 package com.notificationservice.listener;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.notificationservice.config.AppConfig;
 import com.notificationservice.dto.PaymentRequest;
 import com.notificationservice.service.NotificationService;
@@ -10,6 +11,7 @@ import javax.servlet.ServletContextListener;
 import java.io.*;
 
 public class NotificationConsumer implements ServletContextListener {
+    private final NotificationService notificationService = new NotificationService();
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -22,22 +24,18 @@ public class NotificationConsumer implements ServletContextListener {
             consumer.setMessageListener(new MessageListener() {
                 public void onMessage(Message message) {
                     try {
-                        if (message instanceof BytesMessage) {
-                            BytesMessage bm = (BytesMessage) message;
-                            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                            byte[] buffer = new byte[1024];
-                            int len;
-                            while ((len = bm.readBytes(buffer)) != -1) {
-                                bos.write(buffer, 0, len);
-                            }
+                        if (message instanceof TextMessage) {
+                            TextMessage textMessage = (TextMessage) message;
+                            String json = textMessage.getText();
 
-                            ObjectInputStream ois = new ObjectInputStream(
-                                    new ByteArrayInputStream(bos.toByteArray()));
-                            PaymentRequest req = (PaymentRequest) ois.readObject();
+                            System.out.println("📩 [NotificationConsumer] Received JSON: " + json);
 
-                            System.out.println("📩 [NotificationConsumer] Received: " + req.getPaymentId());
-                            new NotificationService().sendNotification(req);
+                            ObjectMapper mapper = new ObjectMapper();
+                            PaymentRequest req = mapper.readValue(json, PaymentRequest.class);
+
+                            notificationService.sendNotification(req);
                         }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

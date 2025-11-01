@@ -1,5 +1,6 @@
 package com.bank.controller;
 
+import com.bank.config.JsonConfig;
 import com.bank.dto.OtpConfirmDTO;
 import com.bank.dto.TransactionDTO;
 import com.bank.dto.TransferDTO;
@@ -7,6 +8,7 @@ import com.bank.model.Transaction;
 import com.bank.service.TransferService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,15 +23,20 @@ import java.util.Map;
 public class TransferController extends HttpServlet {
 
     private TransferService transferService;
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = JsonConfig.getMapper();
 
     @Override
     public void init() throws ServletException {
-        // ⚙️ Lấy service từ ServletContext nếu có, hoặc khởi tạo tạm
-        this.transferService = (TransferService) getServletContext().getAttribute("transferService");
-        if (this.transferService == null) {
-            this.transferService = new TransferService(); // cần constructor rỗng
+        ServletContext context = getServletContext();
+        this.transferService = (TransferService) context.getAttribute("transferService");
+
+
+        if (transferService == null) {
+            System.err.println("AdminTransactionController: transferService chưa được khởi tạo");
+            throw new ServletException("Services not found in ServletContext");
         }
+
+        System.out.printf("AdminTransactionController initialized successfully");
     }
 
     @Override

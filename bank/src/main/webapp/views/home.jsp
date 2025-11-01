@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ page isELIgnored="true" %>
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -83,12 +86,13 @@
         </button>
     </div>
 </main>
-<div th:replace="fragments/notify :: notify"></div>
-<script th:src="@{/assets/js/notify.js}"></script>
+<jsp:include page="/views/fragments/notify.jsp" />
+
+</body>
+<script src="/assets/js/notify.js"></script>
 <script src="/assets/js/home.js"></script>
 <script src="/assets/js/account.js"></script>
 <script src="/assets/js/createCard.js"></script>
 <script src="/assets/js/transfer.js"></script>
 <script src="/assets/js/transaction-history.js"></script>
-</body>
 </html>

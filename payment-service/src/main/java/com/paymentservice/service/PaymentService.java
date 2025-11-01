@@ -1,16 +1,15 @@
 package com.paymentservice.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paymentservice.config.JmsConfig;
 import com.paymentservice.dto.PaymentRequest;
 
 import javax.jms.*;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
 
 public class PaymentService {
 
     public void processPayment(PaymentRequest paymentRequest) {
-        System.out.println("💳 [PaymentService] Sending PaymentRequest to queue...");
+        System.out.println("💳 [PaymentService] Sending PaymentRequest to queue (as JSON)...");
         try {
             Session session = JmsConfig.getSession();
             if (session == null) {
@@ -21,21 +20,22 @@ public class PaymentService {
             Destination destination = session.createQueue("payment-queue");
             MessageProducer producer = session.createProducer(destination);
 
-            // serialize object to byte array
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
-            oos.writeObject(paymentRequest);
-            oos.flush();
+            // 🔹 Convert object to JSON
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writeValueAsString(paymentRequest);
 
-            BytesMessage message = session.createBytesMessage();
-            message.writeBytes(bos.toByteArray());
-
+            // 🔹 Send as TextMessage
+            TextMessage message = session.createTextMessage(json);
             producer.send(message);
-            System.out.println("📤 [PaymentService] PaymentRequest sent: " + paymentRequest.getPaymentId());
+
+            System.out.println("📤 [PaymentService] JSON sent to queue: " + json);
+
+            // Cleanup
+            producer.close();
+            // ⚠️ session.close() sẽ được JmsConfig tự quản lý, không đóng ở đây để tránh shared session lỗi
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("❌ [PaymentService] Failed to send message: " + e.getMessage());
         }
     }
 }
-
