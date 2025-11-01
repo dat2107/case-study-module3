@@ -1,0 +1,55 @@
+
+<%@ tag body-content="empty" %>
+
+<!-- fragments/notify.jsp -->
+    <!-- Modal thông báo -->
+    <div id="notifyModal" class="hidden fixed inset-0 bg-black bg-opacity-40 items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-2xl shadow-2xl w-96 text-center animate-fade-in-down">
+            <h2 class="text-xl font-bold mb-3" id="notifyTitle">Thông báo</h2>
+            <p id="notifyMessage" class="mb-6 text-gray-700"></p>
+            <button onclick="closeNotify()"
+                    class="bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition">
+                OK
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div id="toastContainer" class="fixed top-5 right-5 z-50 space-y-3"></div>
+
+    <!-- Modal Confirm -->
+    <div id="confirmModal" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg w-96 p-6 text-center">
+            <h3 class="text-lg font-semibold mb-4">Xác nhận</h3>
+            <p id="confirmMessage" class="mb-6 text-gray-700"></p>
+            <div class="flex justify-center gap-4">
+                <button id="confirmYes" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Xóa</button>
+                <button id="confirmNo" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal DUYỆT -->
+    <div id="approveModal" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg w-96 p-6 text-center">
+            <h3 class="text-lg font-semibold mb-4">Xác nhận duyệt</h3>
+            <p class="mb-6 text-gray-700">Bạn có chắc chắn muốn <b>Duyệt</b> giao dịch này?</p>
+            <div class="flex justify-center gap-4">
+                <button id="approveOkBtn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Duyệt</button>
+                <button id="approveCancelBtn" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal TỪ CHỐI -->
+    <div id="rejectModal" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg w-96 p-6 text-center">
+            <h3 class="text-lg font-semibold mb-4">Xác nhận từ chối</h3>
+            <p class="mb-6 text-gray-700">Bạn có chắc chắn muốn <b>Từ chối</b> giao dịch này?</p>
+            <div class="flex justify-center gap-4">
+                <button id="rejectOkBtn" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Từ chối</button>
+                <button id="rejectCancelBtn" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Hủy</button>
+            </div>
+        </div>
+    </div>
+

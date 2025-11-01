@@ -1,0 +1,51 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="true" %>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>Quản lý người dùng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+<div class="max-w-6xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
+
+    <!-- Tiêu đề -->
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold mb-2">Quản lý người dùng</h1>
+    </div>
+
+    <!-- Table -->
+    <h2 class="text-xl font-semibold mb-4">Bảng người dùng</h2>
+
+    <!-- Ô tìm kiếm -->
+    <div class="flex justify-between items-center mb-4">
+        <div class="relative w-1/3">
+            <input type="text" placeholder="Tìm kiếm theo tên người dùng"
+                   class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            <button class="absolute right-2 top-2 text-gray-500 hover:text-gray-700">Tìm kiếm</button>
+        </div>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full border border-gray-200 text-gray-700">
+            <thead class="bg-gray-100">
+            <tr>
+                <th class="px-4 py-2 border">Mã</th>
+                <th class="px-4 py-2 border">Tên khách hàng</th>
+                <th class="px-4 py-2 border">Email</th>
+                <th class="px-4 py-2 border">Số điện thoại</th>
+                <th class="px-4 py-2 border">Cấp độ</th>
+                <th class="px-4 py-2 border">Hành động</th>
+            </tr>
+            </thead>
+            <tbody id="userTable">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="/js/user.js"></script>
+</body>
+</html>

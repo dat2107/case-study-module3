@@ -1,0 +1,47 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>Danh sách giao dịch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+<div class="max-w-6xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold">Bảng giao dịch</h2>
+    </div>
+
+    <!-- Bảng danh sách giao dịch -->
+    <div class="overflow-x-auto">
+        <table class="min-w-full border border-gray-200 text-gray-700">
+            <thead>
+            <tr class="bg-gray-100">
+                <th class="px-4 py-2 border">Mã</th>
+                <th class="px-4 py-2 border">Thẻ nguồn</th>
+                <th class="px-4 py-2 border">Thẻ đích</th>
+                <th class="px-4 py-2 border">Số tiền</th>
+                <th class="px-4 py-2 border">Loại giao dịch</th>
+                <th class="px-4 py-2 border">Trạng thái</th>
+                <th class="px-4 py-2 border">Hành động</th>
+            </tr>
+            </thead>
+            <tbody id="transactionTable">
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Phân trang -->
+    <div class="flex justify-center mt-4 space-x-2">
+        <button id="prevPage" class="px-3 py-1 border rounded bg-gray-200">«</button>
+        <span id="currentPage" class="px-3 py-1 border rounded bg-blue-500 text-white">1</span>
+        <button id="nextPage" class="px-3 py-1 border rounded bg-gray-200">»</button>
+    </div>
+</div>
+
+<script src="/js/transaction.js"></script>
+
+</body>
+</html>
+

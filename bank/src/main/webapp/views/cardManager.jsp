@@ -1,0 +1,47 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>Quản lý thẻ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+<div class="max-w-7xl mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="mb-6 text-sm text-gray-600">
+        <a href="/dashboard" class="text-blue-600 hover:underline">Bảng điều khiển</a> /
+        <span class="text-gray-800 font-semibold">Thẻ</span>
+    </nav>
+
+    <!-- Title -->
+    <h1 class="text-3xl font-bold mb-6">Quản lý thẻ</h1>
+
+    <!-- Search -->
+    <div class="mb-4 flex justify-between items-center">
+        <input type="text" id="searchCard" placeholder="Tìm kiếm theo số thẻ"
+               class="border rounded px-4 py-2 w-1/3 focus:ring focus:ring-blue-200 focus:outline-none">
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+        <table class="w-full text-left border-collapse">
+            <thead class="bg-gray-50 border-b">
+            <tr>
+                <th class="px-4 py-2 border">Mã</th>
+                <th class="px-4 py-2 border">Tên người dùng</th>
+                <th class="px-4 py-2 border">Số thẻ</th>
+                <th class="px-4 py-2 border">Loại thẻ</th>
+                <th class="px-4 py-2 border">Trạng thái</th>
+                <th class="px-4 py-2 border text-center">Hành động</th>
+            </tr>
+            </thead>
+            <tbody id="cardTable" class="divide-y divide-gray-200">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="/js/cardManager.js"></script>
+</body>
+</html>

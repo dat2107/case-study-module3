@@ -1,0 +1,25 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <!-- Đăng ký servlet REST endpoint -->
+    <servlet>
+        <servlet-name>PaymentController</servlet-name>
+        <servlet-class>com.paymentservice.controller.PaymentController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PaymentController</servlet-name>
+        <url-pattern>/api/payments</url-pattern>
+    </servlet-mapping>
+
+    <!-- Listener tự động kết nối ActiveMQ khi Tomcat start -->
+    <listener>
+        <listener-class>com.paymentservice.listener.PaymentConsumer</listener-class>
+    </listener>
+
+    <display-name>Payment Service</display-name>
+
+</web-app>

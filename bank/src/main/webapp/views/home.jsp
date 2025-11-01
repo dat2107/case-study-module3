@@ -1,0 +1,94 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Home - MyBank</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/css/custom.css}" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',
+                        secondary: '#64748b',
+                        accent: '#0ea5e9'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-sans">
+<!-- Header -->
+<header class="bg-gradient-to-r from-blue-800 to-blue-900 text-white shadow-lg">
+    <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl">🏦</span>
+                <strong class="text-2xl font-bold">MyBank</strong>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="/home" class="hover:text-blue-200 transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-blue-700 bg-blue-700">Trang Chủ</a>
+                <a href="/account" onclick="navigate(event, '/account')"
+                   class="hover:text-blue-200 px-3 py-2 rounded-lg hover:bg-blue-700">
+                    Tài Khoản
+                </a>
+                <a href="/history" onclick="navigate(event, '/transaction-history')"
+                   class="hover:text-blue-200 transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-blue-700">
+                    Lịch Sử</a>
+                <a href="/services" class="hover:text-blue-200 transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-blue-700">Dịch Vụ</a>
+                <a href="/contact" class="hover:text-blue-200 transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-blue-700">Liên Hệ</a>
+                <a href="#" onclick="logout()" class="hover:text-red-200 transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-red-600">Đăng Xuất</a>
+            </nav>
+            <!-- Mobile menu button -->
+            <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-2">
+            <a href="/home" class="block hover:text-blue-200 transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-blue-700 bg-blue-700">Trang Chủ</a>
+            <a href="/account" onclick="navigate(event, '/account')"
+               class="hover:text-blue-200 px-3 py-2 rounded-lg hover:bg-blue-700">
+                Tài Khoản
+            </a>
+            <a href="/history" class="block hover:text-blue-200 transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-blue-700">Lịch Sử</a>
+            <a href="/services" class="block hover:text-blue-200 transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-blue-700">Dịch Vụ</a>
+            <a href="/contact" class="block hover:text-blue-200 transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-blue-700">Liên Hệ</a>
+            <a href="#" onclick="logout()" class="block hover:text-red-200 transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-red-600">Đăng Xuất</a>
+        </div>
+    </div>
+</header>
+
+<!-- Welcome Section -->
+<main id="mainContent" class="container mx-auto px-6 py-16">
+    <div class="text-center">
+        <div class="mb-8">
+            <h1 id="welcomeUser" class="text-5xl md:text-6xl font-bold text-gray-800 mb-4 animate-fade-in">
+                Xin chào
+            </h1>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+                Ngân hàng số - Giải pháp tài chính an toàn và hiện đại
+            </p>
+        </div>
+
+        <!-- Action Button -->
+        <button class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 mb-16">
+            🚀 Khám Phá Ngay
+        </button>
+    </div>
+</main>
+<div th:replace="fragments/notify :: notify"></div>
+<script th:src="@{/assets/js/notify.js}"></script>
+<script src="/assets/js/home.js"></script>
+<script src="/assets/js/account.js"></script>
+<script src="/assets/js/createCard.js"></script>
+<script src="/assets/js/transfer.js"></script>
+<script src="/assets/js/transaction-history.js"></script>
+</body>
+</html>
